@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/main_background1">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_1"
+            android:icon="@drawable/apple_pic"
+            android:title="排行榜" />
+        <item
+            android:id="@+id/nav_2"
+            android:icon="@mipmap/recent"
+            android:title="最近配音" />
+        <item
+            android:id="@+id/nav_3"
+            android:icon="@mipmap/exit"
+            android:title="登出" />
+    </group>
+
+</menu>
