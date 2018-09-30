@@ -13,6 +13,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
@@ -27,6 +29,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.doublez.entity.BaseInfo;
+import com.example.doublez.entity.User;
+import com.example.doublez.util.APIUtil;
 
 import org.litepal.crud.DataSupport;
 
@@ -45,6 +51,23 @@ public class Signup extends AppCompatActivity
     private EditText email;
     private EditText password;
     private EditText repassword;
+
+    private BaseInfo baseInfo;
+
+    private Handler register_handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            baseInfo = (BaseInfo)msg.obj;
+            if(baseInfo.getCode() == 0){
+                Toast.makeText(Signup.this, "注册成功", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Signup.this, Login.class);
+                startActivity(intent);
+                finish();
+            }else{
+                Toast.makeText(Signup.this, baseInfo.getMsg(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
 
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -146,12 +169,10 @@ public class Signup extends AppCompatActivity
                             });
                             dialog.show();
                         } else {
-                            User user = new User(username.getText().toString(), email.getText().toString(), password.getText().toString(), img(avatarBMP));
-                            user.save();
-                            Toast.makeText(Signup.this, "注册成功", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Signup.this, Login.class);
-                            startActivity(intent);
-                            finish();
+                            User user = new User(email.getText().toString(), password.getText().toString(), img(avatarBMP));
+//                            user.save();
+                            APIUtil.invokeRegisterAPI(register_handler,
+                                    user.getEmail(),user.getPassword(),user.getAvatar().toString());
                         }
                     }
                 }

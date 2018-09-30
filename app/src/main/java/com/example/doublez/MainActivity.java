@@ -1,13 +1,9 @@
 package com.example.doublez;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,14 +14,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.litepal.crud.DataSupport;
+import com.example.doublez.entity.User;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -73,8 +68,9 @@ public class MainActivity extends AppCompatActivity
         ImageView nav_avatar = (ImageView) headerLayout.findViewById(R.id.icon_image);
 
         nav_email.setText(user.getEmail());
-        nav_username.setText(user.getUsername());
-        Bitmap bitmap = BitmapFactory.decodeByteArray(user.getavatarBMP(), 0, user.getavatarBMP().length);
+        //还没更新详细信息的用户，以后会更改
+        nav_username.setText("用户");
+        Bitmap bitmap = BitmapFactory.decodeByteArray(user.getAvatar(), 0, user.getAvatar().length);
         nav_avatar.setImageBitmap(bitmap);
         Log.d("MainActivity", "执行到4处");
 

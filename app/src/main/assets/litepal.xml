@@ -3,7 +3,7 @@
     <dbname value="doublez"></dbname>
     <version value="11"></version>
     <list>
-        <mapping class="com.example.doublez.User"></mapping>
+        <mapping class="com.example.doublez.entity.User"></mapping>
 
         <mapping class="com.example.doublez.RecentItem"></mapping>
     </list>

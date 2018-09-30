@@ -1,4 +1,4 @@
-package com.example.doublez;
+package com.example.doublez.entity;
 
 import android.graphics.Bitmap;
 
@@ -9,26 +9,18 @@ import java.io.Serializable;
 public class User extends DataSupport implements Serializable
 {
     //实现Serializable接口是为了能在Login中直接传递查询出来的user对象给MainActivity
-    private String username;
+    private int id;
     private String email;
     private String password;
     private byte[] avatar;
 
-    public User(String username,String email,String password,byte[] avatar)
+    public User(String email,String password,byte[] avatar)
     {
-        this.username=username;
         this.email=email;
         this.password=password;
         this.avatar=avatar;
     }
 
-    public String getUsername() {
-        return this.username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public void setEmail(String email) {
         this.email = email;
@@ -52,8 +44,16 @@ public class User extends DataSupport implements Serializable
         return this.password;
     }
 
-    public byte[] getavatarBMP()
+    public byte[] getAvatar()
     {
         return this.avatar;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
