@@ -23,6 +23,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -46,11 +47,13 @@ public class Signup extends AppCompatActivity
 
     private ImageView avatarImage;
     private Bitmap avatarBMP;
-    private byte[] avatar;
+    private String avatar;
     private EditText username;
     private EditText email;
     private EditText password;
     private EditText repassword;
+
+    private String TAG = "注册活动";
 
     private BaseInfo baseInfo;
 
@@ -153,27 +156,11 @@ public class Signup extends AppCompatActivity
                     }
                     else
                     {
-                        List<User> users = DataSupport.where("email = ?", email.getText().toString())
-                                .find(User.class);
-                        if(users.size() == 1){
-                            AlertDialog.Builder dialog=new AlertDialog.Builder(Signup.this);
-                            dialog.setTitle("此邮箱已经存在");
-                            dialog.setCancelable(true);
-                            dialog.setPositiveButton("好",new DialogInterface.OnClickListener()
-                            {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which)
-                                {
-                                    email.getText().clear();
-                                }
-                            });
-                            dialog.show();
-                        } else {
-                            User user = new User(email.getText().toString(), password.getText().toString(), img(avatarBMP));
+                        User user = new User(email.getText().toString(), password.getText().toString(), img(avatarBMP));
 //                            user.save();
-                            APIUtil.invokeRegisterAPI(register_handler,
-                                    user.getEmail(),user.getPassword(),user.getAvatar().toString());
-                        }
+                        APIUtil.invokeRegisterAPI(register_handler,
+                                user.getEmail(),user.getPassword(),user.getAvatar());
+
                     }
                 }
             }
@@ -263,9 +250,11 @@ public class Signup extends AppCompatActivity
         avatarBMP = bm;
     }
 
-    private byte[] img(Bitmap bitmap){
+    private String img(Bitmap bitmap){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        return baos.toByteArray();
+        byte [] byte_array = baos.toByteArray();
+        String avatar_base64 = Base64.encodeToString(byte_array, 0);
+        return avatar_base64;
     }
 }

@@ -13,6 +13,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.doublez.entity.User;
+import com.example.doublez.util.GlobalData;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        user = (User)getIntent().getSerializableExtra("User");
+        user = GlobalData.getUser();
 
         //Toolbar
         Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
@@ -70,7 +72,8 @@ public class MainActivity extends AppCompatActivity
         nav_email.setText(user.getEmail());
         //还没更新详细信息的用户，以后会更改
         nav_username.setText("用户");
-        Bitmap bitmap = BitmapFactory.decodeByteArray(user.getAvatar(), 0, user.getAvatar().length);
+        byte[] avatar_byte_array = Base64.decode(user.getAvatar(), 0);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(avatar_byte_array, 0, avatar_byte_array.length);
         nav_avatar.setImageBitmap(bitmap);
         Log.d("MainActivity", "执行到4处");
 

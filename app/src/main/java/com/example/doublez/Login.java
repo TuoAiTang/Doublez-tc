@@ -21,10 +21,7 @@ import android.widget.Toast;
 import com.example.doublez.entity.BaseInfo;
 import com.example.doublez.entity.User;
 import com.example.doublez.util.APIUtil;
-
-import org.litepal.crud.DataSupport;
-
-import java.util.List;
+import com.example.doublez.util.GlobalData;
 
 public class Login extends AppCompatActivity
 {
@@ -43,9 +40,7 @@ public class Login extends AppCompatActivity
         public void handleMessage(Message msg) {
             user = (User)msg.obj;
             Intent intent = new Intent(Login.this, MainActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("User", user);
-            intent.putExtras(bundle);
+            GlobalData.setUser(user);
             Log.d("Login", "执行到此处1");
             startActivity(intent);
             finish();  //还不知道为什么要加finish()

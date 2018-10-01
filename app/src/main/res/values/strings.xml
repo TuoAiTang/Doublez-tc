@@ -2,6 +2,6 @@
     <string name="app_name">Doublez!</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="username">931182716@qq.com</string>
-    <string name="password">123456</string>
+    <string name="username"></string>
+    <string name="password"></string>
 </resources>
